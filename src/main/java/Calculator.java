@@ -11,8 +11,6 @@ public class Calculator {
     private final Formatter formatter;
     private double totalPrice;
 
-
-
     public Calculator(int numberOfPersons, Scanner scanner){
         this.numberOfPersons = numberOfPersons;
         this.formatter = new Formatter(scanner);
@@ -32,7 +30,7 @@ public class Calculator {
                 break;
             } else {
                 productName = inputValue;
-                productPrice = formatter.getProductPrice("Введите цену товара.", "Стоимость должна быть в формате рубли.копейки, например 10.45 или 11.40");
+                productPrice = formatter.getProductPrice("Введите цену товара.", "Стоимость должна быть в формате рубли.копейки, например 10,45 или 11,40");
                 Product product = new Product(productName, productPrice);
                 productList.add(product);
                 totalPrice += productPrice;
@@ -48,13 +46,13 @@ public class Calculator {
         Iterator<Product> listIterator = productList.iterator();
         while (listIterator.hasNext()){
             Product product = listIterator.next();
-            System.out.println("\"" + product.getName() + "\" на сумму " + product.getPrice());
+            System.out.println("\"" + product.getName() + "\" на сумму " + String.format("%.2f", product.getPrice()));
         }
 
-        System.out.println("Общая сумма: " + totalPrice);
+        System.out.println("Общая сумма: " + String.format("%.2f", totalPrice));
         double dividedPrice = formatter.getDividedPrice(totalPrice, numberOfPersons);
         String currencyName = formatter.getCurrencyDecline(dividedPrice);
-        System.out.println("Каждый человек должен заплатить: " + dividedPrice + " " + currencyName);
+        System.out.println("Каждый человек должен заплатить: " + String.format("%.2f", dividedPrice) + " " + currencyName);
 
     }
 

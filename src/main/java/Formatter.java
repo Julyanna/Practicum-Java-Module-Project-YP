@@ -72,16 +72,20 @@ public class Formatter {
     public double getDividedPrice(double totalPrice, int numberOfPersons) {
 
         double dividedPrice = totalPrice / numberOfPersons;
-        dividedPrice = Math.round(dividedPrice * 100.0) / 100.0;
+        dividedPrice = Math.round(dividedPrice * 100.0) / 100.0; //Округление до 2 знаков после запятой
         return dividedPrice;
     }
 
     public String getCurrencyDecline(double amount){
         String currencyName;
 
-        int lastNumber = (int) (Math.floor(amount) % 10);
+        int lastNumberBeforePoint = (int) (Math.floor(amount) % 10);            // единицы числа
+        int nextToLastNumberBeforePoint = (int) (Math.floor(amount) / 10 % 10); // десятки числа
+        if (nextToLastNumberBeforePoint == 1) {                                 // если число вышло от 10 до 19, то падеж будет как у 0 рублей
+            lastNumberBeforePoint = 0;
+        }
 
-        switch (lastNumber) {
+        switch (lastNumberBeforePoint) {
             case 1 -> currencyName = "рубль";
             case 2, 3, 4 -> currencyName = "рубля";
             case 5, 6, 7, 8, 9, 0 -> currencyName = "рублей";
