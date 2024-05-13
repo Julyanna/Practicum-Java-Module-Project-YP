@@ -1,11 +1,8 @@
-
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class Calculator {
-
     private final int numberOfPersons;
     private final ArrayList<Product> productList = new ArrayList<>();
     private final Formatter formatter;

@@ -1,37 +1,32 @@
-
 import java.util.Scanner;
 
 public class Formatter {
-
     private final Scanner scanner;
-
     public Formatter(Scanner scanner) {
         this.scanner = scanner;
     }
 
     public int scanNumberOfPersons() {
 
-        System.out.println("На скольких человек необходимо разделить счёт?");
         int numberOfPersons;
+        System.out.println("На скольких человек необходимо разделить счёт?");
         String messageError = "Количество человек неверное, введите количество больше или равно 2";
-        while (true) {
 
+        while (true) {
             if (!scanner.hasNextInt()) {
                 System.out.println(messageError);
-                scanner.nextLine();
+                getString();
             } else {
                 numberOfPersons = scanner.nextInt();
                 if (numberOfPersons < 2){
                     System.out.println(messageError);
-                    scanner.nextLine();
+                    getString();
                 } else {
                     break;
                 }
             }
         }
-
-        scanner.nextLine(); // Очистка буфера ввода после Чтение числового значения из ввода
-
+        getString(); // Очистка буфера ввода после Чтение числового значения из ввода
         return numberOfPersons;
     }
 
@@ -40,14 +35,15 @@ public class Formatter {
     }
 
     public double getProductPrice(String msgFirst, String msgRightPrice){
+
         double price;
         System.out.println(msgFirst + " " + msgRightPrice);
         String msgErrorPrice = "Вы ввели некорректный формат стоимости.";
+
         while (true) {
             if (!scanner.hasNextDouble()){
-
                 System.out.println(msgErrorPrice + "\n" + msgRightPrice);
-                scanner.nextLine();
+                getString();
             } else {
                 price = scanner.nextDouble();
                 price = Math.round(price * 100.0) / 100.0;
@@ -58,10 +54,7 @@ public class Formatter {
                 }
             }
         }
-
-
-        scanner.nextLine(); // Очистка буфера ввода после Чтение числового значения из ввода
-
+        getString(); // Очистка буфера ввода после Чтение числового значения из ввода
         return price;
     }
 
@@ -70,15 +63,14 @@ public class Formatter {
     }
 
     public double getDividedPrice(double totalPrice, int numberOfPersons) {
-
         double dividedPrice = totalPrice / numberOfPersons;
         dividedPrice = Math.round(dividedPrice * 100.0) / 100.0; //Округление до 2 знаков после запятой
         return dividedPrice;
     }
 
     public String getCurrencyDecline(double amount){
-        String currencyName;
 
+        String currencyName;
         int lastNumberBeforePoint = (int) (Math.floor(amount) % 10);            // единицы числа
         int nextToLastNumberBeforePoint = (int) (Math.floor(amount) / 10 % 10); // десятки числа
         if (nextToLastNumberBeforePoint == 1) {                                 // если число вышло от 10 до 19, то падеж будет как у 0 рублей
@@ -91,7 +83,6 @@ public class Formatter {
             case 5, 6, 7, 8, 9, 0 -> currencyName = "рублей";
             default -> currencyName = "руб";
         }
-
 
         return currencyName;
     }
